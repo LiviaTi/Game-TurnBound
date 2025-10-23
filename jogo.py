@@ -16,6 +16,17 @@ class Character:
 	def show_details(self):
 		return f"Name: {self.get_name()} \n Life: {self.get_life()} \n Level: {self.get_level()}"
 
+	def receive_attack(self, damage):
+		self.__life -= damage
+		if self.__life < 0:
+			self._life = 0
+
+	def attack(self, target):
+		damage = self.__level * 2
+		target.receive_attack(damage)
+		print(f"{self.get_name()} attack {target.get_name()} and caused {damage} damage")
+
+
 class Hero(Character):
 	def __init__(self, name, life, level, ability)-> None:
 		super().__init__(name, life, level)
@@ -56,6 +67,14 @@ class	Game:
 			input("Press enter to attack...")
 			choice = input("Choice (1 - Normal attack, 2 - Special attack):")
 
+			if choice == '1':
+				self.hero.attack(self.enemy)
+			else:
+				print("Invalid choice, choosen again")
+		if self.hero.get_life() > 0:
+			print("Congratulations you won the battle")
+		else:
+			print("You were defeated")
 # Create game instance and start battle
 jogo = Game()
 jogo.start_battle()
