@@ -12,6 +12,9 @@ class Character:
 	
 	def get_level(self):
 		return self.__level
+	
+	def show_details(self):
+		return f"Name: {self.get_name()} \n Life: {self.get_life()} \n Level: {self.get_level()}"
 
 class Hero(Character):
 	def __init__(self, name, life, level, ability)-> None:
@@ -20,6 +23,10 @@ class Hero(Character):
 	
 	def get_ability(self):
 		return self.__ability
+	
+	def show_details(self):
+		return f"{super().show_details()} \n Ability: {self.get_ability()} \n"
+
 
 class Enemy(Character):
 	def __init__(self, name, life, level, kind)-> None:
@@ -28,3 +35,12 @@ class Enemy(Character):
 	
 	def get_kind(self):
 		return self.__kind
+
+	def show_details(self):
+		return f"{super().show_details()} \n Kind: {self.get_kind()}\n"
+
+hero = Hero(name="Spider-Man", life=100, level=5, ability="spider sense")
+print(hero.show_details())
+
+enemy = Enemy(name="Joker", life=80, level=4, kind="cheater")
+print(enemy.show_details())
