@@ -39,8 +39,23 @@ class Enemy(Character):
 	def show_details(self):
 		return f"{super().show_details()} \n Kind: {self.get_kind()}\n"
 
-hero = Hero(name="Spider-Man", life=100, level=5, ability="spider sense")
-print(hero.show_details())
+class	Game:
+	"""Game orchestrator class"""
+	def __init__(self)->None:
+		self.hero = Hero(name="Spider-Man", life=100, level=5, ability="spider sense")
+		self.enemy = Enemy(name="Joker", life=80, level=4, kind="cheater")
 
-enemy = Enemy(name="Joker", life=80, level=4, kind="cheater")
-print(enemy.show_details())
+	def start_battle(self):
+		""" Manage the attle in turns """
+		print("Starting battle:")
+		while self.hero.get_life() > 0 and self.enemy.get_life() > 0:
+			print("\n Character details:")
+			print(self.hero.show_details())
+			print(self.enemy.show_details())
+
+			input("Press enter to attack...")
+			choice = input("Choice (1 - Normal attack, 2 - Special attack):")
+
+# Create game instance and start battle
+jogo = Game()
+jogo.start_battle()
