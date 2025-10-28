@@ -1,3 +1,5 @@
+import random 
+
 class Character:
 	def __init__(self, name, life, level)-> None:
 		self.__name = name
@@ -22,7 +24,7 @@ class Character:
 			self._life = 0
 
 	def attack(self, target):
-		damage = self.__level * 2
+		damage = random.randint(self.get_level() * 2, self.get_level() * 4 )
 		target.receive_attack(damage)
 		print(f"{self.get_name()} attack {target.get_name()} and caused {damage} damage")
 
@@ -39,7 +41,7 @@ class Hero(Character):
 		return f"{super().show_details()} \n Ability: {self.get_ability()} \n"
 	
 	def special_attack(self, target):
-		damage = self.get_level() * 5
+		damage = random.randint(self.get_level() * 5, self.get_level() * 8 )
 		target.receive_attack(damage)
 		print(f"{self.get_name()} special attack {self.get_ability()} on {target.get_name()} and caused {damage} damage")
 
@@ -53,7 +55,7 @@ class Enemy(Character):
 
 	def show_details(self):
 		return f"{super().show_details()} \n Kind: {self.get_kind()}\n"
-
+	
 class	Game:
 	"""Game orchestrator class"""
 	def __init__(self)->None:
@@ -77,6 +79,10 @@ class	Game:
 				self.hero.special_attack(self.enemy)
 			else:
 				print("Invalid choice, choosen again")
+
+			if self.enemy.get_life() > 0:
+				#enemy attack hero
+				self.enemy.attack(self.hero)
 		if self.hero.get_life() > 0:
 			print("Congratulations you won the battle")
 		else:
